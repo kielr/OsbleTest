@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using OsbleTest.Authentication;
 using OsbleTest.WebService;
+using OsbleTest.AssignmentSubmission;
 using NUnit.Framework;
+using System.IO;
 
 namespace OsbleTest
 {
@@ -78,7 +80,7 @@ namespace OsbleTest
             }
 
             //Loop through the classes
-            for(int i = 0; i < 5; i++)
+            for (int i = 0; i < 5; i++)
             {
                 //Assert that the number of classes are equal
                 Assert.AreEqual(expectedCourseCount[i], receivedClasses[i].Length);
@@ -88,7 +90,7 @@ namespace OsbleTest
                     StringAssert.AreEqualIgnoringCase(expectedClasses[j], receivedClasses[i][j].Name);
                 }
             }
-            
+
             //Milestone Meeting Notes: 11/2/2015
             //TO DO:The students should be able to submit files to assignments in the courses that correspond to the users
             //      These include the following:
@@ -104,5 +106,41 @@ namespace OsbleTest
             // File size stuff:
             //      -If there is a limit Evan can impose, one test that has junk data that tests that.
         }
+        [Test]
+        public void SubmitAssignmentCorrectly()
+        {
+            AuthenticationServiceClient authenticationService = new AuthenticationServiceClient();
+            AssignmentSubmissionServiceClient assignmentService = new AssignmentSubmissionServiceClient();
+            OsbleServiceClient osbleService = new OsbleServiceClient();
+
+            string password = "cpts422teamosble";
+            string authToken = authenticationService.ValidateUser("osble.test.group2@gmail.com", password);
+            byte[] zippedFile = File.ReadAllBytes("E:\\Documents\\GitHub\\OsbleTest\\OsbleTest\\HW2 instructions.zip");
+            int assignmentID = 0;
+            Course[] courses = osbleService.GetCourses(authToken);
+            Console.WriteLine("Course: " + courses[0].Name);
+            Assignment[] assignments = courses[0].Assignments;
+            Console.WriteLine("assignments length " + assignments.Length);
+            Console.WriteLine("Assignment 1 " + assignments[0].AssignmentName);
+            foreach (Assignment assignment in assignments)
+            {
+                Console.WriteLine("Assignment Name "+ assignment.AssignmentName);
+                Console.WriteLine("Assignment ID " + assignment.ID);
+                if (assignment.AssignmentName == "A3")
+                {
+                    assignmentID = assignment.ID;
+                }
+            }
+
+            bool result = osbleService.SubmitAssignment(assignmentID, zippedFile, authToken);
+            Assert.AreEqual(true, result);
+
+
+
+
+
+
+        }
+
     }
 }

@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\..\..\DotNetZipLib-DevKit-v1.9\zip-v1.9\Release\Ionic.Zip.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -52,6 +55,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\AssignmentSubmission\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\WebService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -61,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="HW2 instructions.zip" />
     <None Include="Service References\Authentication\AuthenticationService.wsdl" />
     <None Include="Service References\Authentication\AuthenticationService.xsd">
       <SubType>Designer</SubType>
@@ -77,6 +86,17 @@
     </None>
     <None Include="Service References\Authentication\OsbleTest.Authentication.UserProfile.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AssignmentSubmission\AssignmentSubmissionService.wsdl" />
+    <None Include="Service References\AssignmentSubmission\AssignmentSubmissionService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AssignmentSubmission\AssignmentSubmissionService1.wsdl" />
+    <None Include="Service References\AssignmentSubmission\AssignmentSubmissionService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AssignmentSubmission\AssignmentSubmissionService2.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Service References\WebService\OsbleService.wsdl" />
     <None Include="Service References\WebService\OsbleService.xsd">
@@ -122,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\Authentication\" />
+    <WCFMetadataStorage Include="Service References\AssignmentSubmission\" />
     <WCFMetadataStorage Include="Service References\WebService\" />
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +171,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\WebService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AssignmentSubmission\AssignmentSubmissionService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AssignmentSubmission\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AssignmentSubmission\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AssignmentSubmission\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

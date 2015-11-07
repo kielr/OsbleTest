@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="1b510037-7c8b-4cf6-909a-cdaf687cb5aa" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="https://osble.org/Services/AssignmentSubmissionService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="AssignmentSubmissionService.xsd" MetadataType="Schema" ID="9dbffbf1-673c-41b3-881a-8f139d3dcd7f" SourceId="1" SourceUrl="http://osble.org/Services/AssignmentSubmissionService.svc?xsd=xsd2" />
+    <MetadataFile FileName="AssignmentSubmissionService1.xsd" MetadataType="Schema" ID="a654918a-c1f6-46b4-bb54-b7a3640c4865" SourceId="1" SourceUrl="http://osble.org/Services/AssignmentSubmissionService.svc?xsd=xsd1" />
+    <MetadataFile FileName="AssignmentSubmissionService2.xsd" MetadataType="Schema" ID="c0a065d4-de34-4784-adb0-9d6610b6605d" SourceId="1" SourceUrl="http://osble.org/Services/AssignmentSubmissionService.svc?xsd=xsd0" />
+    <MetadataFile FileName="AssignmentSubmissionService.wsdl" MetadataType="Wsdl" ID="52a5f1ea-8430-4085-ba48-6676a340c71b" SourceId="1" SourceUrl="http://osble.org/Services/AssignmentSubmissionService.svc?wsdl" />
+    <MetadataFile FileName="AssignmentSubmissionService1.wsdl" MetadataType="Wsdl" ID="5f8b80a2-6524-4251-8f36-9b8700f683b9" SourceId="1" SourceUrl="http://osble.org/Services/AssignmentSubmissionService.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="AssignmentSubmissionService.disco" MetadataType="Disco" ID="ca51e990-58d7-4f63-b641-a9d010d6568f" SourceId="1" SourceUrl="http://osble.org/Services/AssignmentSubmissionService.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
