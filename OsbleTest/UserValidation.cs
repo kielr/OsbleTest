@@ -8,6 +8,7 @@ using OsbleTest.WebService;
 using OsbleTest.AssignmentSubmission;
 using NUnit.Framework;
 using System.IO;
+using Ionic.Zip;
 
 namespace OsbleTest
 {
@@ -19,8 +20,12 @@ namespace OsbleTest
         {
             ValidateAuthTokenTest();
             GetCoursesTest();
+            SubmitAssignmentCorrectlyTest();
         }
         
+        /// <summary>
+        /// Attempts to retrieve an AuthToken and makes sure it isn't NULL
+        /// </summary>
         [Test]
         public void ValidateAuthTokenTest()
         {
@@ -49,10 +54,14 @@ namespace OsbleTest
                 //If the auth token is null, stop the function
                 Assert.IsNotNull(receivedAuthTokens[i - 1]);
             }
-            
+
+            Console.WriteLine("ValidateAuthTokenTest() Assert(s) was successful.");
+
         }
 
-
+        /// <summary>
+        /// Attempts to get a list of courses, and then makes sure they are correct
+        /// </summary>
         [Test]
         public void GetCoursesTest()
         {
@@ -91,55 +100,42 @@ namespace OsbleTest
                 }
             }
 
-            //Milestone Meeting Notes: 11/2/2015
-            //TO DO:The students should be able to submit files to assignments in the courses that correspond to the users
-            //      These include the following:
-            //              -Submit assignment file
-            //              -Get back submitted file
-            //              -Verify data
-            //              -Have some submissions that are expected to work
-            //              -And some that aren't
-            // For the ones that aren't pay attention to assignment due dates
-            // Then the other one is, courses and assignments have ids, submit to this assignment id
-            // If student A isn't in course A, then they can't submit to any course A's assignments
-            // Submit and be able to pull the submission
-            // File size stuff:
-            //      -If there is a limit Evan can impose, one test that has junk data that tests that.
+            Console.WriteLine("GetCoursesTest() Assert(s) was successful.");
         }
-        [Test]
-        public void SubmitAssignmentCorrectly()
-        {
-            AuthenticationServiceClient authenticationService = new AuthenticationServiceClient();
-            AssignmentSubmissionServiceClient assignmentService = new AssignmentSubmissionServiceClient();
-            OsbleServiceClient osbleService = new OsbleServiceClient();
 
-            string password = "cpts422teamosble";
-            string authToken = authenticationService.ValidateUser("osble.test.group2@gmail.com", password);
-            byte[] zippedFile = File.ReadAllBytes("E:\\Documents\\GitHub\\OsbleTest\\OsbleTest\\HW2 instructions.zip");
+        /// <summary>
+        /// Attempts to submit an assignment to an assignment that is not late...
+        /// </summary>
+        [Test]
+        public void SubmitAssignmentCorrectlyTest()
+        {
+            OsbleServiceClient osbleService = new OsbleServiceClient();
+            string password = "cpts422teamosble"; //We have only one password for all test accounts
+            string authToken = CommonTestLibrary.OsbleLogin("osble.test.group2@gmail.com", password); //Use our OsbleLogin() function from our common test library to retrieve auth tokens
             int assignmentID = 0;
             Course[] courses = osbleService.GetCourses(authToken);
-            Console.WriteLine("Course: " + courses[0].Name);
-            Assignment[] assignments = courses[0].Assignments;
-            Console.WriteLine("assignments length " + assignments.Length);
-            Console.WriteLine("Assignment 1 " + assignments[0].AssignmentName);
+            Assignment[] assignments = osbleService.GetCourseAssignments(courses[0].ID, authToken);
+
+            //Get the file in a zip object
+            ZipFile file = new ZipFile();
+            FileStream stream = File.OpenRead("C:\\Users\\regus_000\\Source\\Repos\\OsbleTest\\OsbleTest\\HW2 instructions.zip");
+            file.AddEntry("hw1.zip", stream);
+            MemoryStream zippedFile = new MemoryStream();
+            file.Save(zippedFile);
+
+            //For each assignment in assignments...
             foreach (Assignment assignment in assignments)
             {
-                Console.WriteLine("Assignment Name "+ assignment.AssignmentName);
-                Console.WriteLine("Assignment ID " + assignment.ID);
-                if (assignment.AssignmentName == "A3")
+                //We are looking for a not late assignment...
+                if (assignment.AssignmentName == "A3 due Dec 25 by 11:55 PM")
                 {
                     assignmentID = assignment.ID;
                 }
             }
 
-            bool result = osbleService.SubmitAssignment(assignmentID, zippedFile, authToken);
+            bool result = osbleService.SubmitAssignment(assignmentID, zippedFile.ToArray(), authToken);
             Assert.AreEqual(true, result);
-
-
-
-
-
-
+            Console.WriteLine("SubmitAssignmentCorrectlyTest() Assert(s) was successful.");
         }
 
     }
