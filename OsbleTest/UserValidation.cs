@@ -17,6 +17,8 @@ namespace OsbleTest
     public class UserValidation
     {
 
+
+        string startDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         public void DoValidation()
         {
             ValidateAuthTokenTest();
@@ -120,7 +122,7 @@ namespace OsbleTest
 
             //Get the file in a zip object
             ZipFile file = new ZipFile();
-            FileStream stream = File.OpenRead("C:\\Users\\regus_000\\Source\\Repos\\OsbleTest\\OsbleTest\\testsubmission.zip");
+            FileStream stream = File.OpenRead(startDirectory + "\\Test Assignments\\testsubmission.zip");
             file.AddEntry("hw1.zip", stream);
             MemoryStream zippedFile = new MemoryStream();
             file.Save(zippedFile);
@@ -186,5 +188,76 @@ namespace OsbleTest
         // Submit and be able to pull the submission
         // File size stuff:
         //      -If there is a limit Evan can impose, one test that has junk data that tests that.
+
+        /// <summary>
+        /// Attempts to submit an assignment late, it should not submit
+        /// </summary>
+        [Test]
+        public void SubmitAssignmentLateTest()
+        {
+            OsbleServiceClient osbleService = new OsbleServiceClient();
+            string password = "cpts422teamosble"; //We have only one password for all test accounts
+            string authToken = CommonTestLibrary.OsbleLogin("osble.test.group2@gmail.com", password); //Use our OsbleLogin() function from our common test library to retrieve auth tokens
+            int assignmentID = 0;
+            Course[] courses = osbleService.GetCourses(authToken);
+            Assignment[] assignments = osbleService.GetCourseAssignments(courses[0].ID, authToken);
+
+            //Get the file in a zip object
+            ZipFile file = new ZipFile();
+            FileStream stream = File.OpenRead(startDirectory + "\\Test Assignments\\test_text.txt");
+            file.AddEntry("hw1.zip", stream);
+            MemoryStream zippedFile = new MemoryStream();
+            file.Save(zippedFile);
+
+            //For each assignment in assignments...
+            foreach (Assignment assignment in assignments)
+            {
+                //Find a passed due assignment
+                if (assignment.AssignmentName == "A1 due Nov 4 by 6 PM")
+                {
+                    assignmentID = assignment.ID;
+                }
+            }
+
+            bool result = osbleService.SubmitAssignment(assignmentID, zippedFile.ToArray(), authToken);
+            // SubmitAssignment should return false
+            Assert.AreEqual(false, result);
+            Console.WriteLine("SubmitAssignmentLateTest() Assert(s) was successful.");
+        }
+
+        /// <summary>
+        /// Attempts to submit an assignment with the wrong file type, should not submit
+        /// </summary>
+        [Test]
+        public void SubmitAssignmentWrongFileTypeTest()
+        {
+            OsbleServiceClient osbleService = new OsbleServiceClient();
+            string password = "cpts422teamosble"; //We have only one password for all test accounts
+            string authToken = CommonTestLibrary.OsbleLogin("osble.test.group3@gmail.com", password); //Use our OsbleLogin() function from our common test library to retrieve auth tokens
+            int assignmentID = 0;
+            Course[] courses = osbleService.GetCourses(authToken);
+            Assignment[] assignments = osbleService.GetCourseAssignments(courses[0].ID, authToken);
+
+            ZipFile file = new ZipFile();
+            FileStream stream = File.OpenRead(startDirectory + "\\Test Assignments\\test_text.txt");
+            file.AddEntry("hw1.zip", stream);
+            MemoryStream zippedFile = new MemoryStream();
+            file.Save(zippedFile);
+
+            //For each assignment in assignments...
+            foreach (Assignment assignment in assignments)
+            {
+                //Find a passed due assignment
+                if (assignment.AssignmentName == "A2 due Nov 6 by 2 PM")
+                {
+                    assignmentID = assignment.ID;
+                }
+            }
+
+            bool result = osbleService.SubmitAssignment(assignmentID, zippedFile.ToArray(), authToken);
+            // SubmitAssignment should return false
+            Assert.AreEqual(false, result);
+            Console.WriteLine("SubmitAssignmentLateTest() Assert(s) was successful.");
+        }
     }
 }
