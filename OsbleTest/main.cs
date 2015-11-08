@@ -11,7 +11,7 @@ namespace OsbleTest
     class main
     {
         /// <summary>
-        /// Main driver for the testing framework.
+        /// Main driver for the testing framework w/o NUnit.
         /// </summary>
         /// <param name="args"></param>
         static void Main(string[] args)

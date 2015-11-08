@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using OsbleTest.Authentication;
 using OsbleTest.WebService;
 using OsbleTest.AssignmentSubmission;
+using OsbleTest.UploaderWebService;
 using NUnit.Framework;
 using System.IO;
 using Ionic.Zip;
@@ -21,6 +22,7 @@ namespace OsbleTest
             ValidateAuthTokenTest();
             GetCoursesTest();
             SubmitAssignmentCorrectlyTest();
+            GetAssignmentTest();
         }
         
         /// <summary>
@@ -118,7 +120,7 @@ namespace OsbleTest
 
             //Get the file in a zip object
             ZipFile file = new ZipFile();
-            FileStream stream = File.OpenRead("C:\\Users\\regus_000\\Source\\Repos\\OsbleTest\\OsbleTest\\HW2 instructions.zip");
+            FileStream stream = File.OpenRead("C:\\Users\\regus_000\\Source\\Repos\\OsbleTest\\OsbleTest\\testsubmission.zip");
             file.AddEntry("hw1.zip", stream);
             MemoryStream zippedFile = new MemoryStream();
             file.Save(zippedFile);
@@ -126,7 +128,7 @@ namespace OsbleTest
             //For each assignment in assignments...
             foreach (Assignment assignment in assignments)
             {
-                //We are looking for a not late assignment...
+                //We are looking for A3...
                 if (assignment.AssignmentName == "A3 due Dec 25 by 11:55 PM")
                 {
                     assignmentID = assignment.ID;
@@ -138,5 +140,51 @@ namespace OsbleTest
             Console.WriteLine("SubmitAssignmentCorrectlyTest() Assert(s) was successful.");
         }
 
+        /// <summary>
+        /// Attempts to download an already submitted assignment.
+        /// </summary>
+        [Test]
+        public void GetAssignmentTest()
+        {
+            OsbleServiceClient osbleService = new OsbleServiceClient();
+            string password = "cpts422teamosble"; //We have only one password for all test accounts
+            string authToken = CommonTestLibrary.OsbleLogin("osble.test.group2@gmail.com", password); //Use our OsbleLogin() function from our common test library to retrieve auth tokens
+            Course[] courses = osbleService.GetCourses(authToken);
+            Assignment[] assignments = osbleService.GetCourseAssignments(courses[0].ID, authToken);
+            int assignmentID = 0;
+
+            //For each assignment in assignments...
+            foreach (Assignment assignment in assignments)
+            {
+                //We are looking for A3's ID...
+                if (assignment.AssignmentName == "A3 due Dec 25 by 11:55 PM")
+                {
+                    assignmentID = assignment.ID;
+                }
+            }
+
+            ZipFile file = new ZipFile();
+            byte[] assignmentData = osbleService.GetAssignmentSubmission(assignmentID, authToken);
+
+            Assert.NotNull(assignmentData);
+
+            Console.WriteLine("GetAssignmentTest() Assert(s) was successful.");
+        }
+
+
+        //Milestone Meeting Notes: 11/2/2015
+        //TO DO:The students should be able to submit files to assignments in the courses that correspond to the users
+        //      These include the following:
+        //              -Submit assignment file ->DONE<-
+        //              -Get back submitted file ->DONE<-
+        //              -Verify data
+        //              -Have some submissions that are expected to work
+        //              -And some that aren't
+        // For the ones that aren't pay attention to assignment due dates
+        // Then the other one is, courses and assignments have ids, submit to this assignment id
+        // If student A isn't in course A, then they can't submit to any course A's assignments
+        // Submit and be able to pull the submission
+        // File size stuff:
+        //      -If there is a limit Evan can impose, one test that has junk data that tests that.
     }
 }

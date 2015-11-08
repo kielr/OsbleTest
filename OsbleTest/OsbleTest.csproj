@@ -60,6 +60,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\UploaderWebService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\WebService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -96,6 +101,29 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\AssignmentSubmission\AssignmentSubmissionService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UploaderWebService\OsbleTest.UploaderWebService.DirectoryListing.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UploaderWebService\OsbleTest.UploaderWebService.FileListing.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UploaderWebService\OsbleTest.UploaderWebService.ParentDirectoryListing.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UploaderWebService\UploaderWebService.wsdl" />
+    <None Include="Service References\UploaderWebService\UploaderWebService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UploaderWebService\UploaderWebService1.wsdl" />
+    <None Include="Service References\UploaderWebService\UploaderWebService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UploaderWebService\UploaderWebService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UploaderWebService\UploaderWebService3.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\WebService\OsbleService.wsdl" />
@@ -143,6 +171,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\Authentication\" />
     <WCFMetadataStorage Include="Service References\AssignmentSubmission\" />
+    <WCFMetadataStorage Include="Service References\UploaderWebService\" />
     <WCFMetadataStorage Include="Service References\WebService\" />
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +215,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\AssignmentSubmission\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UploaderWebService\UploaderWebService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UploaderWebService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UploaderWebService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UploaderWebService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
