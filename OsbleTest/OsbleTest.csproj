@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Test Assignments\deliverable_zip_large.zip" />
     <None Include="Test Assignments\HW2 instructions.zip" />
     <None Include="Service References\Authentication\AuthenticationService.wsdl" />
     <None Include="Service References\Authentication\AuthenticationService.xsd">
@@ -164,7 +165,7 @@
     <None Include="Service References\WebService\OsbleTest.WebService.CourseRole.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Test Assignments\testsubmission.zip" />
+    <None Include="Test Assignments\deliverable_zip.zip" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -236,7 +237,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Test Assignments\test_text.txt" />
+    <Content Include="Test Assignments\deliverable_txt.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
