@@ -164,6 +164,7 @@
     <None Include="Service References\WebService\OsbleTest.WebService.CourseRole.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Test Assignments\testsubmission.zip" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
