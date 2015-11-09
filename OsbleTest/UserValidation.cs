@@ -25,6 +25,7 @@ namespace OsbleTest
             GetCoursesTest();
             SubmitAssignmentCorrectlyTest();
             GetAssignmentTest();
+            VerifyAssignmentContentsTest();
         }
         
         /// <summary>
@@ -339,5 +340,44 @@ namespace OsbleTest
             Console.WriteLine("SubmitAssignmentOverSizeLimitTest() Assert(s) was successful.");
         }
 
+        /// <summary>
+        /// Submits an assignment, then compares it to the original file
+        /// </summary>
+        /// [Test]
+        public void VerifyAssignmentContentsTest()
+        {
+            OsbleServiceClient osbleService = new OsbleServiceClient();
+            string password = "cpts422teamosble"; //We have only one password for all test accounts
+            string authToken = CommonTestLibrary.OsbleLogin("osble.test.group2@gmail.com", password); //Use our OsbleLogin() function from our common test library to retrieve auth tokens
+            int assignmentID = 0;
+            Course[] courses = osbleService.GetCourses(authToken);
+            Assignment[] assignments = osbleService.GetCourseAssignments(courses[0].ID, authToken);
+
+            //Get the file in a zip object
+            ZipFile file = new ZipFile();
+            FileStream stream = File.OpenRead(startDirectory + "\\Test Assignments\\testsubmission.txt");
+            file.AddEntry("hw1.zip", stream);
+            MemoryStream zippedFile = new MemoryStream();
+            file.Save(zippedFile);
+
+            //For each assignment in assignments...
+            foreach (Assignment assignment in assignments)
+            {
+                //We are looking for A3...
+                if (assignment.AssignmentName == "A3 due Dec 25 by 11:55 PM")
+                {
+                    assignmentID = assignment.ID;
+                }
+            }
+
+            osbleService.SubmitAssignment(assignmentID, zippedFile.ToArray(), authToken);
+
+            // Retrieve the assignment
+            string assignmentContents = osbleService.GetAssignmentSubmission(assignmentID, authToken).ToString();
+
+            StringAssert.AreEqualIgnoringCase(zippedFile.ToString(), assignmentContents);
+            Console.WriteLine("VerifyAssignmentContentsTest() Assert(s) was successful.");
+
+        }
     }
 }

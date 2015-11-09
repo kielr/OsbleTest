@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ionic.Zip">
-      <HintPath>..\..\..\Documents\DotNetZipLib-DevKit-v1.9\zip-v1.9\Release\Ionic.Zip.dll</HintPath>
+      <HintPath>..\..\..\..\Desktop\zip-v1.9\Release\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -238,6 +238,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Test Assignments\deliverable_txt.txt" />
+    <Content Include="Test Assignments\testsubmission.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
