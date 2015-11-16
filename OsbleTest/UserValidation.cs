@@ -204,11 +204,13 @@ namespace OsbleTest
             Assignment[] assignments = osbleService.GetCourseAssignments(courses[0].ID, authToken);
 
             //Get the file in a zip object
+            Console.WriteLine("Zipping file...\n");
             ZipFile file = new ZipFile();
             FileStream stream = File.OpenRead(startDirectory + "\\Test Assignments\\deliverable_txt.txt");
             file.AddEntry("hw1.zip", stream);
             MemoryStream zippedFile = new MemoryStream();
             file.Save(zippedFile);
+            Console.WriteLine("File zipped.\n");
 
             //For each assignment in assignments...
             foreach (Assignment assignment in assignments)
@@ -220,10 +222,12 @@ namespace OsbleTest
                 }
             }
 
+            Console.WriteLine("Attempting to submit assignment now...\n");
+
             bool result = osbleService.SubmitAssignment(assignmentID, zippedFile.ToArray(), authToken);
             // SubmitAssignment should return false
-            Assert.AreEqual(false, result);
-            Console.WriteLine("SubmitAssignmentLateTest() Assert(s) was successful.");
+            Assert.AreEqual(false, result, "OSBLE accepted assignment late when it should not.");
+            Console.WriteLine("SubmitAssignmentLateTest() Assert(s) successful. Assignment was not submitted.");
         }
 
         /// <summary>
@@ -239,11 +243,14 @@ namespace OsbleTest
             Course[] courses = osbleService.GetCourses(authToken);
             Assignment[] assignments = osbleService.GetCourseAssignments(courses[0].ID, authToken);
 
+            // Zip file
+            Console.WriteLine("Zipping file...\n");
             ZipFile file = new ZipFile();
             FileStream stream = File.OpenRead(startDirectory + "\\Test Assignments\\deliverable_txt.txt");
             file.AddEntry("hw1.zip", stream);
             MemoryStream zippedFile = new MemoryStream();
             file.Save(zippedFile);
+            Console.WriteLine("File zipped.\n");
 
             //For each assignment in assignments...
             foreach (Assignment assignment in assignments)
@@ -255,10 +262,12 @@ namespace OsbleTest
                 }
             }
 
+            Console.WriteLine("Attempting to submit assignment now...\n");
+
             bool result = osbleService.SubmitAssignment(assignmentID, zippedFile.ToArray(), authToken);
             // SubmitAssignment should return false
-            Assert.AreEqual(false, result);
-            Console.WriteLine("SubmitAssignmentWrongFileTypeTest() Assert(s) was successful.");
+            Assert.AreEqual(false, result, "OSBLE accepted assignment with wrong file type when it should not.");
+            Console.WriteLine("SubmitAssignmentWrongFileTypeTest() Assert(s) was successful. Assignment was not submitted.");
         }
 
         /// <summary>
@@ -281,11 +290,13 @@ namespace OsbleTest
             Course[] courses = osbleService.GetCourses(authToken);
             Assignment[] assignments = osbleService.GetCourseAssignments(courses[0].ID, authToken);
 
+            Console.WriteLine("Zipping file...\n");
             ZipFile file = new ZipFile();
             FileStream stream = File.OpenRead(startDirectory + "\\Test Assignments\\deliverable_txt.txt");
             file.AddEntry("hw1.zip", stream);
             MemoryStream zippedFile = new MemoryStream();
             file.Save(zippedFile);
+            Console.WriteLine("File zipped.\n");
 
             //For each assignment in assignments...
             foreach (Assignment assignment in assignments)
@@ -297,11 +308,13 @@ namespace OsbleTest
                 }
             }
 
+            Console.WriteLine("Attempting to submit assignment now...\n");
+
             // the student that was not in 422 is submitting to the assignment ID for an assignment in class 422
             bool result = osbleService.SubmitAssignment(assignmentID, zippedFile.ToArray(), authToken2);
             // SubmitAssignment should return false
-            Assert.AreEqual(false, result);
-            Console.WriteLine("SubmitAssignmentWrongClassTest() Assert(s) was successful.");
+            Assert.AreEqual(false, result, "OSBLE accepted assignment to wrong class when it should not.");
+            Console.WriteLine("SubmitAssignmentWrongClassTest() Assert(s) was successful. Assignment was not submitted.");
 
         }
 
@@ -319,11 +332,13 @@ namespace OsbleTest
             Assignment[] assignments = osbleService.GetCourseAssignments(courses[0].ID, authToken);
 
             //Get the file in a zip object
+            Console.WriteLine("Zipping file...\n");
             ZipFile file = new ZipFile();
             FileStream stream = File.OpenRead(startDirectory + "\\Test Assignments\\deliverable_zip_large.zip");
             file.AddEntry("hw1.zip", stream);
             MemoryStream zippedFile = new MemoryStream();
             file.Save(zippedFile);
+            Console.WriteLine("File zipped.\n");
 
             //For each assignment in assignments...
             foreach (Assignment assignment in assignments)
@@ -332,12 +347,15 @@ namespace OsbleTest
                 if (assignment.AssignmentName == "A3 due Dec 25 by 11:55 PM")
                 {
                     assignmentID = assignment.ID;
+                    Console.WriteLine("Successfully found assignment.\n");
                 }
             }
 
+            Console.WriteLine("Attempting to submit assignment now...\n");
+
             bool result = osbleService.SubmitAssignment(assignmentID, zippedFile.ToArray(), authToken);
-            Assert.AreEqual(false, result);
-            Console.WriteLine("SubmitAssignmentOverSizeLimitTest() Assert(s) was successful.");
+            Assert.AreEqual(false, result, "OSBLE accepted oversize assignment when it should not.");
+            Console.WriteLine("SubmitAssignmentOverSizeLimitTest() Assert(s) successful. Assignment was not submitted.");
         }
 
         /// <summary>
