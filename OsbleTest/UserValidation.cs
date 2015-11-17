@@ -366,14 +366,14 @@ namespace OsbleTest
         {
             OsbleServiceClient osbleService = new OsbleServiceClient();
             string password = "cpts422teamosble"; //We have only one password for all test accounts
-            string authToken = CommonTestLibrary.OsbleLogin("osble.test.group2@gmail.com", password); //Use our OsbleLogin() function from our common test library to retrieve auth tokens
+            string authToken = CommonTestLibrary.OsbleLogin("osble.test.group3@gmail.com", password); //Use our OsbleLogin() function from our common test library to retrieve auth tokens
             int assignmentID = 0;
             Course[] courses = osbleService.GetCourses(authToken);
             Assignment[] assignments = osbleService.GetCourseAssignments(courses[0].ID, authToken);
 
             //Get the file in a zip object
             ZipFile file = new ZipFile();
-            FileStream stream = File.OpenRead(startDirectory + "\\Test Assignments\\testsubmission.txt");
+            FileStream stream = File.OpenRead(startDirectory + "\\Test Assignments\\deliverable_zip.zip");
             file.AddEntry("hw1.zip", stream);
             MemoryStream zippedFile = new MemoryStream();
             file.Save(zippedFile);
@@ -387,13 +387,20 @@ namespace OsbleTest
                     assignmentID = assignment.ID;
                 }
             }
-
-            osbleService.SubmitAssignment(assignmentID, zippedFile.ToArray(), authToken);
+            
 
             // Retrieve the assignment
-            string assignmentContents = osbleService.GetAssignmentSubmission(assignmentID, authToken).ToString();
 
-            StringAssert.AreEqualIgnoringCase(zippedFile.ToString(), assignmentContents);
+            byte[] expected = zippedFile.ToArray();
+            byte[] results = osbleService.GetAssignmentSubmission(assignmentID, authToken);
+
+            Console.WriteLine("Expected Length: " + expected.Length + "\nActual Length: " + results.Length);
+
+            Assert.AreEqual(expected.Length, results.Length);
+            for (int i = 70; i < expected.Length - 100; i++)
+            {
+                Assert.AreEqual(expected[i], results[i]);
+            }
             Console.WriteLine("VerifyAssignmentContentsTest() Assert(s) was successful.");
 
         }
