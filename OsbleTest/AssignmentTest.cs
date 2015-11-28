@@ -17,6 +17,7 @@ namespace OsbleTest
     class AssignmentTest
     {
         string startDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+        string password = "cpts422teamosble"; //We have only one password for all test accounts
 
         public void DoAssignmentTests()
         {
@@ -202,7 +203,6 @@ namespace OsbleTest
         public void SubmitAssignmentOverSizeLimitTest()
         {
             OsbleServiceClient osbleService = new OsbleServiceClient();
-            string password = "cpts422teamosble"; //We have only one password for all test accounts
             string authToken = CommonTestLibrary.OsbleLogin("osble.test.group4@gmail.com", password); //Use our OsbleLogin() function from our common test library to retrieve auth tokens
             int assignmentID = 0;
             Course[] courses = osbleService.GetCourses(authToken);
