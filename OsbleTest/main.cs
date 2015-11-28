@@ -16,9 +16,16 @@ namespace OsbleTest
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            UserValidation validateUser = new UserValidation();
+            UserValidationTest validateUser = new UserValidationTest();
+            AssignmentTest validateAssignment = new AssignmentTest();
 
+            //Run User test fixturesdsd
             validateUser.DoValidation();
+
+            //Run Assignment test fixture
+            validateAssignment.DoAssignmentTests();
+
+            return;
         }
     }
 }

@@ -35,7 +35,7 @@
     <Reference Include="Ionic.Zip">
       <HintPath>..\..\..\..\Desktop\zip-v1.9\Release\Ionic.Zip.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
+    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssignmentTest.cs" />
     <Compile Include="CommonTestLibrary.cs" />
     <Compile Include="main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,7 +71,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="UserValidation.cs" />
+    <Compile Include="UserValidationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -237,9 +238,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Libraries\Ionic.Zip.dll" />
     <Content Include="Test Assignments\deliverable_txt.txt" />
     <Content Include="Test Assignments\testsubmission.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
