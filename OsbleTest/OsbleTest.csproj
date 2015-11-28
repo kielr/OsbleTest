@@ -71,6 +71,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="TestingFrameworkMenu.cs" />
     <Compile Include="UserValidationTest.cs" />
   </ItemGroup>
   <ItemGroup>

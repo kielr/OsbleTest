@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-//Test change
-
 namespace OsbleTest
 {
     class main
@@ -16,14 +14,10 @@ namespace OsbleTest
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            UserValidationTest validateUser = new UserValidationTest();
-            AssignmentTest validateAssignment = new AssignmentTest();
+            TestingFrameworkMenu menu = new TestingFrameworkMenu();
 
-            //Run User test fixturesdsd
-            validateUser.DoValidation();
-
-            //Run Assignment test fixture
-            validateAssignment.DoAssignmentTests();
+            //We are being run w/o NUnit, print the menu
+            menu.Menu();
 
             return;
         }

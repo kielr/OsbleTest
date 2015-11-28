@@ -20,7 +20,16 @@ namespace OsbleTest
 
         public void DoAssignmentTests()
         {
-
+            Console.WriteLine("Running SubmitAssignmentCorrectlyTest()...");
+            SubmitAssignmentCorrectlyTest();
+            Console.WriteLine("Running SubmitAssignmentLateTest()...");
+            SubmitAssignmentLateTest();
+            Console.WriteLine("Running SubmitAssignmentOverSizeLimitTest()...");
+            SubmitAssignmentOverSizeLimitTest();
+            Console.WriteLine("Running SubmitAssignmentWrongClassTest()...");
+            SubmitAssignmentWrongClassTest();
+            Console.WriteLine("SubmitAssignmentWrongFileTypeTest()");
+            SubmitAssignmentWrongFileTypeTest();
         }
 
         /// <summary>
@@ -229,7 +238,7 @@ namespace OsbleTest
         /// <summary>
         /// Submits an assignment, then compares it to the original file
         /// </summary>
-        /// [Test]
+        [Test]
         public void VerifyAssignmentContentsTest()
         {
             OsbleServiceClient osbleService = new OsbleServiceClient();
